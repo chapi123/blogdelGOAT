@@ -1,18 +1,10 @@
 :root {
-    --blog-bg: #121212;
-    --blog-panel: rgba(19, 19, 19, 0.9);
-    --blog-panel-alt: rgba(30, 30, 30, 0.9);
-    --blog-border: #5c0120;
-    --blog-text: #ffffff;
-    --blog-light: #cccccc;
-    --blog-muted: #a7a7a7;
-    --blog-accent: #ee7674;
-    --blog-accent-strong: #800020;
+    --blog-muted: var(--secondary-text);
 }
 
 body {
-    background-color: var(--blog-bg);
-    color: var(--blog-text);
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .blog-page {
@@ -63,11 +55,26 @@ body {
     gap: 22px;
 }
 
+
+/* ---------------------------------------------------------
+   Colores propios de las tarjetas (FIX de contraste):
+   fondo y texto salen del MISMO tema (style.css), asi siempre
+   cambian juntos: tarjeta clara + texto oscuro en modo claro,
+   tarjeta oscura + texto claro en modo oscuro.
+   --------------------------------------------------------- */
+
+.blog-card,
+.blog-detail-card {
+    --card-bg: var(--code-bg);
+    --card-text: var(--text-color);
+    --card-secondary: var(--secondary-text);
+}
+
 .blog-card {
     padding: 32px 28px;
     border: 1px solid var(--accent-border);
     border-radius: 18px;
-    background: var(--blog-panel);
+    background: var(--card-bg);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
@@ -77,7 +84,7 @@ body {
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 16px;
-    color: var(--blog-muted);
+    color: var(--card-secondary);
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -95,12 +102,12 @@ body {
 
 .blog-card h2 {
     margin: 0 0 16px;
-    color: var(--text-color);
+    color: var(--card-text);
     font-size: clamp(1.7rem, 2vw, 2.2rem);
 }
 
 .blog-card h2 a {
-    color: var(--text-color);
+    color: var(--card-text);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -110,7 +117,7 @@ body {
 }
 
 .blog-card p {
-    color: var(--secondary-text);
+    color: var(--card-secondary);
     font-size: 17px;
     line-height: 1.7;
     margin: 0 0 24px;
@@ -120,7 +127,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 14px;
-    color: var(--text-color);
+    color: var(--card-text);
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 2px;
@@ -141,7 +148,7 @@ body {
 }
 
 .blog-detail-card {
-    background: var(--blog-panel);
+    background: var(--card-bg);
     border: 1px solid var(--accent-border);
     border-radius: 20px;
     padding: clamp(24px, 4vw, 48px);
@@ -154,7 +161,7 @@ body {
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 20px;
-    color: var(--blog-muted);
+    color: var(--card-secondary);
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -162,13 +169,13 @@ body {
 
 .blog-detail-card h1 {
     margin: 0 0 28px;
-    color: var(--text-color);
+    color: var(--card-text);
     font-size: clamp(2.2rem, 4vw, 4rem);
     letter-spacing: 1px;
 }
 
 .blog-detail-content {
-    color: var(--secondary-text);
+    color: var(--card-secondary);
     line-height: 1.9;
     font-size: 17px;
 }
@@ -187,9 +194,19 @@ body {
     border-top: 1px solid var(--accent-border);
 }
 
+.blog-detail-card a:not(.blog-link) {
+    color: var(--card-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.blog-detail-card a:not(.blog-link):hover {
+    color: var(--accent-light);
+}
+
 .blog-detail-footer p {
     margin: 0;
-    color: var(--blog-muted);
+    color: var(--card-secondary);
     font-size: 14px;
 }
 
@@ -203,16 +220,35 @@ body {
     pointer-events: none;
 }
 
+.blog-detail-image-container {
+    width: 70%;
+    height: 70%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 30px 0;
+    text-align: center;
+    border: 2px solid var(--accent-border);
+    padding: 15px;
+}
+
+.blog-detail-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
 @media (max-width: 768px) {
     .blog-header-copy {
         margin-bottom: 30px;
     }
-
     .blog-card,
     .blog-detail-card {
         padding: 22px 18px;
     }
-
     .blog-card-meta,
     .blog-detail-header,
     .blog-detail-footer {

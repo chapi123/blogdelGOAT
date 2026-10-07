@@ -1,8 +1,4 @@
-{% extends "blog/layout.html" %}
-
-{% block title %}{{ post.title }}{% endblock %}
-
-{% block blog %}
+{% extends "blog/layout.html" %} {% block title %}{{ post.title }}{% endblock %} {% block blog %}
 <section class="blog-shell blog-detail-section">
     <article class="blog-detail-card">
         <div class="blog-detail-header">
@@ -15,6 +11,12 @@
         <div class="blog-detail-content">
             {{ post.content|linebreaks }}
         </div>
+
+        {% if post.image %}
+        <div class="blog-detail-image-container">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-detail-image">
+        </div>
+        {% endif %}
 
         <div class="blog-detail-footer">
             <p>Última actualización: {{ post.updated_at|date:"d/m/Y" }}</p>

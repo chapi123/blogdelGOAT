@@ -29,9 +29,10 @@
 
             <div class="header-nav">
                 <a href="{% url 'home' %}#home" class="home-btn">Inicio</a>
-                <a href="{% url 'home' %}#Carousel" class="home-btn">Proyectos</a>
                 <input type="checkbox" id="theme-toggle" class="theme-toggle">
                 <label for="theme-toggle" class="theme-btn">☀</label>
+                <a href="{% url 'home' %}#Carousel" class="home-btn">Proyectos</a>
+                <a href="{% url 'home' %}#skills" class="home-btn">Skills</a>
 
                 {% if request.resolver_match.namespace == 'blog' and request.resolver_match.url_name == 'index' %}
                     <a href="#" class="home-btn nav-disabled" onclick="return false;">Blog</a>
@@ -39,7 +40,6 @@
                     <a href="{% url 'blog:index' %}" class="home-btn">Blog</a>
                 {% endif %}
 
-                <a href="{% url 'home' %}#skills" class="home-btn">Skills</a>
                 {% if request.resolver_match.url_name != 'account' and request.resolver_match.url_name != 'logged_out' %}
                     <a href="{% url 'home' %}#contact" class="home-btn">Contacto</a>
                 {% endif %}

@@ -82,6 +82,11 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.header-nav > * {
+    flex-shrink: 0;
 }
 
 .logo {
@@ -121,6 +126,7 @@ body {
     padding: 10px 18px;
     font-size: 15px;
     transition: color 0.25s ease, background-color 0.25s ease;
+    white-space: nowrap;
 }
 
 .projects-btn::before {
@@ -198,6 +204,7 @@ body {
     padding: 10px 18px;
     font-size: 15px;
     transition: color 0.25s ease;
+    white-space: nowrap;
 }
 
 button.home-btn {

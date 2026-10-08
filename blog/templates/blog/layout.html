@@ -40,20 +40,39 @@
                 {% endif %}
 
                 <a href="{% url 'home' %}#skills" class="home-btn">Skills</a>
-                <a href="{% url 'home' %}#contact" class="home-btn">Contacto</a>
+                {% if request.resolver_match.url_name != 'account' and request.resolver_match.url_name != 'logged_out' %}
+                    <a href="{% url 'home' %}#contact" class="home-btn">Contacto</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'blog:logout' %}" class="header-logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="home-btn account-logout-button">Deslogearse</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'blog:account' %}" class="home-btn">Logearte</a>
+                {% endif %}
             </div>
 
         </div>
     </header>
 
+    {% if messages %}
+        <div class="blog-messages" role="status">
+            {% for message in messages %}
+                <p class="blog-message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <main class="blog-page">
         {% block blog %}{% endblock %}
     </main>
 
+    {% if request.resolver_match.url_name != 'account' and request.resolver_match.url_name != 'logged_out' %}
     <section id="contact">
 
         <div class="projects-title">
-            <span>05</span>
+            <span>03</span>
             <h2>CONTACTO</h2>
         </div>
 
@@ -76,6 +95,7 @@
         </div>
 
     </section>
+    {% endif %}
 
 </body>
 

@@ -73,6 +73,15 @@
                     Contacto
                 </a>
 
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'blog:logout' %}" class="header-logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="home-btn account-logout-button">Deslogearse</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'blog:account' %}" class="home-btn">Logearte</a>
+                {% endif %}
+
             </div>
 
         </div>

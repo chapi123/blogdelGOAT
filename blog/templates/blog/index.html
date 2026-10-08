@@ -7,11 +7,33 @@
         <h1>Blog</h1>
     </div>
 
+    <nav class="blog-tag-filters" aria-label="Filtrar publicaciones por etiqueta">
+        <span>Filtrar por:</span>
+        <a href="{% url 'blog:index' %}{% if selected_sort != 'newest' %}?sort={{ selected_sort }}{% endif %}" class="{% if not selected_tag %}active{% endif %}">Todas</a>
+        {% for tag in tags %}
+            <a href="{% url 'blog:index' %}?tag={{ tag.slug }}{% if selected_sort != 'newest' %}&amp;sort={{ selected_sort }}{% endif %}" class="{% if selected_tag == tag.slug %}active{% endif %}">{{ tag.name }}</a>
+        {% endfor %}
+    </nav>
+
+    <nav class="blog-tag-filters" aria-label="Ordenar publicaciones">
+        <span>Ordenar por:</span>
+        <a href="{% url 'blog:index' %}?{% if selected_tag %}tag={{ selected_tag }}&amp;{% endif %}sort=newest" class="{% if selected_sort == 'newest' %}active{% endif %}">Más reciente</a>
+        <a href="{% url 'blog:index' %}?{% if selected_tag %}tag={{ selected_tag }}&amp;{% endif %}sort=oldest" class="{% if selected_sort == 'oldest' %}active{% endif %}">Más antiguo</a>
+        <a href="{% url 'blog:index' %}?{% if selected_tag %}tag={{ selected_tag }}&amp;{% endif %}sort=most_comments" class="{% if selected_sort == 'most_comments' %}active{% endif %}">Más comentarios</a>
+        <a href="{% url 'blog:index' %}?{% if selected_tag %}tag={{ selected_tag }}&amp;{% endif %}sort=fewest_comments" class="{% if selected_sort == 'fewest_comments' %}active{% endif %}">Menos comentarios</a>
+    </nav>
+
     <div class="blog-list">
         {% for post in posts %}
             <article class="blog-card">
                 <div class="blog-card-meta">
-                    <span class="blog-tag">POST</span>
+                    <div class="blog-card-tags">
+                        {% for tag in post.tags.all %}
+                            <a class="blog-tag" href="{% url 'blog:index' %}?tag={{ tag.slug }}{% if selected_sort != 'newest' %}&amp;sort={{ selected_sort }}{% endif %}">{{ tag.name }}</a>
+                        {% empty %}
+                            <span class="blog-tag">POST</span>
+                        {% endfor %}
+                    </div>
                     <time>{{ post.created_at|date:"d/m/Y" }}</time>
                 </div>
 
@@ -31,7 +53,7 @@
         {% empty %}
             <article class="blog-card empty-state">
                 <h2>Todavía no hay publicaciones.</h2>
-                <p>Pronto estaré subiendo contenido sobre Python, proyectos y aprendizaje.</p>
+                <p>Pronto estaré subiendo contenido sobre este tópico.</p>
             </article>
         {% endfor %}
     </div>

@@ -1,0 +1,28 @@
+{% extends "blog/layout.html" %}
+
+{% block title %}Cuenta{% endblock %}
+
+{% block blog %}
+<section class="blog-shell blog-account-section">
+    <div class="blog-header-copy">
+        <span>01</span>
+        <h1>Cuenta</h1>
+    </div>
+
+    <div class="blog-account-card">
+        {% if user.is_authenticated %}
+            <h2>Sesión iniciada</h2>
+            <p>Estás conectado como <strong>{{ user.get_username }}</strong>.</p>
+            <a href="{% url 'home' %}" class="home-button">Ir al Inicio</a>
+        {% else %}
+            <h2>Logearte</h2>
+            <p>Ingresá tu nombre de usuario y contraseña. Si todavía no tenés cuenta, se creará una.</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="home-button">Continuar</button>
+            </form>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

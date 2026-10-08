@@ -1,0 +1,18 @@
+{% extends "blog/layout.html" %}
+
+{% block title %}Sesión cerrada{% endblock %}
+
+{% block blog %}
+<section class="blog-shell blog-account-section">
+    <div class="blog-header-copy">
+        <span>01</span>
+        <h1>Sesión cerrada</h1>
+    </div>
+
+    <div class="blog-account-card">
+        <h2>Cerramos sesión</h2>
+        <p>Ya podés seguir navegando como anónimo.</p>
+        <a href="{% url 'home' %}" class="home-button">Volver al inicio</a>
+    </div>
+</section>
+{% endblock %}

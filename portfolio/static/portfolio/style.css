@@ -200,6 +200,16 @@ body {
     transition: color 0.25s ease;
 }
 
+button.home-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    line-height: normal;
+    cursor: pointer;
+}
+
 .home-btn::before {
     content: "";
     position: absolute;
@@ -330,6 +340,24 @@ body {
     font-weight: 600;
     letter-spacing: 3px;
     transition: 0.25s ease;
+}
+
+.home-button[type="submit"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.account-logout-button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    line-height: normal;
+    cursor: pointer;
 }
 
 .secondary-button {

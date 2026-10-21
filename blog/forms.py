@@ -23,7 +23,12 @@ class AccountForm(forms.Form):
 
 
 class CommentForm(ModelForm):
+    content = forms.CharField(
+        label='Contenido',
+        max_length=500,
+        widget=forms.Textarea(attrs={'maxlength': '500'}),
+    )
+
     class Meta:
         model = Comment
         fields = ['content']
-        labels = {'content': 'Contenido'}

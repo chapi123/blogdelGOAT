@@ -112,6 +112,20 @@ class CommentFormTests(TestCase):
     def test_name_is_not_a_form_field(self):
         self.assertNotIn('name', CommentForm().fields)
 
+    def test_comment_content_is_limited_to_500_characters(self):
+        form = CommentForm()
+        self.assertEqual(form.fields['content'].max_length, 500)
+        self.assertEqual(form.fields['content'].widget.attrs['maxlength'], '500')
+
+        self.assertTrue(CommentForm({'content': 'a' * 500}).is_valid())
+        self.assertFalse(CommentForm({'content': 'a' * 501}).is_valid())
+
+    def test_overlong_comment_is_not_saved(self):
+        response = self.client.post(self.url, {'content': 'a' * 501})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(self.post.comments.exists())
+
     def test_anonymous_comment_uses_anonymous_name(self):
         self.client.post(self.url, {'content': 'A comment', 'name': 'Impersonated'})
 
@@ -142,18 +156,18 @@ class AccountTests(TestCase):
     def setUp(self):
         self.url = reverse('blog:account')
 
-    def test_account_page_hides_contact_navigation_and_section(self):
+    def test_account_page_shows_contact_navigation_but_hides_section(self):
         response = self.client.get(self.url)
 
-        self.assertNotContains(response, 'Contacto')
+        self.assertContains(response, 'class="home-btn">Contacto</a>')
         self.assertNotContains(response, 'CONTACTO')
         self.assertNotContains(response, 'GITHUB')
         self.assertContains(response, 'class="home-button">Continuar</button>')
 
-    def test_logged_out_page_hides_contact_navigation_and_section(self):
+    def test_logged_out_page_shows_contact_navigation_but_hides_section(self):
         response = self.client.get(reverse('blog:logged_out'))
 
-        self.assertNotContains(response, 'Contacto')
+        self.assertContains(response, 'class="home-btn">Contacto</a>')
         self.assertNotContains(response, 'CONTACTO')
         self.assertNotContains(response, 'GITHUB')
 
